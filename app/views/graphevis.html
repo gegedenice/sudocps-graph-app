@@ -1,0 +1,87 @@
+<!--<div class="ppt-body" <div ng-controller="GraphevisCtrl">-->
+    <div id="top" loading="loading">
+  <div class="row">
+    <!--<span class="flow-text">Requêtes personnalisées</span>-->
+      <div class="col s12 m4">
+          <div class="card blue-grey darken-1">
+              <div class="card-content white-text">
+                <span class="card-title">Voir le graphe de sa bibliothèque</span>
+                <select class="browser-default" ng-model="bibSelect">
+                    <option value="" disabled>Choisir une bibliothèque</option>
+                    <option ng-repeat="bib in bibs" value="{{bib.library.rcr}}">{{bib.library.shortname}}</option>
+                  </select>
+              </div>
+             <div class="card-action">
+                <button class="btn-small cyan waves-effect waves-light" ng-click="reloadGraph(cypherByBib(bibSelect))">Go
+                    <i class="material-icons right">send</i>
+                  </button>
+              </div>
+            </div>
+      </div>
+
+      <div class="col s12 m4">
+          <div class="card blue-grey darken-1">
+              <div class="card-content white-text">
+                <span class="card-title">Chercher un titre</span>
+               <input type="text" ng-model="titlesearch" ng-keyup="autocomplete()">
+               <div class="collection">
+                  <a href="" class="collection-item" ng-repeat="propcomplete in propscomplete | limitTo:20" ng-click="reloadGraph(cypherByTitle(propcomplete.id,propcomplete.titre))">{{propcomplete.titre}}</a>
+                </div>
+              <div class="card-action"></div>
+            </div>
+            </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                      <span class="card-title">Posez votre question</span>
+                      Je cherche 
+                    </div>
+                    <div class="card-action">
+                      <a href="#">This is a link</a>
+                    </div>
+                  </div>
+              </div>
+  </div>
+</div>
+        <div class="row">
+                <div class="col s2">
+  <div class="section">  
+      <ul class="collection with-header">
+          <li class="collection-header"><h4>Les unicas : exploration</h4></li>
+          <li class="collection-item"><div>Répartition par département<a href="" class="secondary-content" ng-click="reloadGraph(cypherUnicasAllDpt);getBarChart(unicas,dpt);loading=true;"><i class="material-icons">send</i></a></div></li>
+          <li class="collection-item"><div>Répartition par bibliothèque<a href="" class="secondary-content" ng-click="reloadGraph(cypherUnicasAllBib)"><i class="material-icons">send</i></a></div></li>
+          <li class="collection-item"><div>Relations avec le corpus de Presse locale<a href="" class="secondary-content" ng-click="reloadGraph(cypherUnicasPresselocale)"><i class="material-icons">send</i></a></div></li>
+          <li class="collection-item"><div>Unicas numérisés<a href="" class="secondary-content" ng-click="reloadGraph(cypherUnicasNum)"><i class="material-icons">send</i></a></div></li>
+        </ul>
+        <ul class="collection with-header">
+            <li class="collection-header"><h4>Les unicas : qualité des données</h4></li>
+            <li class="collection-item"><div>Notices Sudoc sans ISSN<a href="" class="secondary-content" ng-click="reloadGraph(cypherUnicasSansIssn)"><i class="material-icons">send</i></a></div></li>
+            <li class="collection-item"><div>Notices Sudoc avec une zone 309 (corrections à faire par le CR)<a href="" class="secondary-content" ng-click="reloadGraph(cypherUnicas309)"><i class="material-icons">send</i></a></div></li>
+            <li class="collection-item"><div>Notices Sudoc sans ISSN et avec zone 309<a href="" class="secondary-content" ng-click="reloadGraph(cypherUnicas309SansIssn)"><i class="material-icons">send</i></a></div></li>
+          </ul>    
+  </div>
+                </div>
+                <div class="col s8">
+                    <a class="waves-effect waves-light btn-small" ng-click="stabilize()">Stabiliser le graphe</a>
+                    <a class="waves-effect waves-light red btn-small" ng-click="clear()">Effacer le graphe</a>
+                    <div id="graphvis-container"></div>                   
+                </div>
+                <div class="col s2">
+                    <div class="section">  
+                        <ul class="collection with-header">
+                            <li class="collection-header"><h4>La presse locale ancienne : exploration</h4></li>
+                            <li class="collection-item"><div>Répartition par département<a href="" class="secondary-content" ng-click="reloadGraph(cypherPresseAllDpt)"><i class="material-icons">send</i></a></div></li>
+                            <li class="collection-item"><div>Répartition par bibliothèque<a href="" class="secondary-content" ng-click="reloadGraph(cypherPresseAllBib)"><i class="material-icons">send</i></a></div></li>
+                            <li class="collection-item"><div>Presse locale ancienne numérisée<a href="" class="secondary-content" ng-click="reloadGraph(cypherPresselocaleNum)"><i class="material-icons">send</i></a></div></li>
+                          </ul>
+
+                          <ul class="collection with-header">
+                              <li class="collection-header"><h4>La presse locale ancienne : qualité des données</h4></li>
+                              <li class="collection-item"><div>Titres orphelins (sans signalement dans le Sudoc)<a href="" class="secondary-content" ng-click="reloadGraph(cypherPresseNoSudoc)"><i class="material-icons">send</i></a></div></li>
+                            </ul>
+                </div>
+
+            </div>
+            </div>

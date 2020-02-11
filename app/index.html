@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.css" />
+    <link rel="stylesheet" href="bower_components/vis/dist/vis.css" />
+    <link rel="stylesheet" href="bower_components/datatables.net-dt/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="bower_components/angularjs-datatables/dist/css/angular-datatables.css" />
+    <link rel="stylesheet" href="bower_components/angularjs-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/style.css">
+    <!-- endbuild -->
+    	<!--other css-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--end other-->
+  </head>
+  <body ng-app="sudocpsApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+	<header> 
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Sudoc-PS PACA/Nice Pro App</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="#!/unicas">Unicas</a></li>
+            <li><a href="#!/presselocale">Presse locale ancienne</a></li>
+            <li><a href="#!/graphevis">Graphe de données</a></li>
+            <li><a href="#!/exports">Exports</a></li>
+            <li><a href="#!/documentation">Documentation</a></li>
+            <li><img src="images/logo.png" /></li>
+          </ul>
+      </div>
+    </nav>
+    </header>
+    <main>
+  <div ng-view=""></div>
+  </main>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID 
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>-->
+  
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/materialize/dist/js/materialize.js"></script>
+    <script src="bower_components/angular-filter/dist/angular-filter.js"></script>
+    <script src="bower_components/xml2json/xml2json.js"></script>
+    <script src="bower_components/vis/dist/vis.js"></script>
+    <script src="bower_components/angular-xml2json/angular-xml2json.js"></script>
+    <script src="bower_components/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="bower_components/angularjs-datatables/dist/angular-datatables.js"></script>
+    <script src="bower_components/angularjs-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.js"></script>
+    <script src="bower_components/angularjs-datatables/dist/plugins/colreorder/angular-datatables.colreorder.js"></script>
+    <script src="bower_components/angularjs-datatables/dist/plugins/columnfilter/angular-datatables.columnfilter.js"></script>
+    <script src="bower_components/angularjs-datatables/dist/plugins/light-columnfilter/angular-datatables.light-columnfilter.js"></script>
+    <script src="bower_components/angularjs-datatables/dist/plugins/colvis/angular-datatables.colvis.js"></script>
+    <script src="bower_components/angularjs-datatables/dist/plugins/fixedcolumns/angular-datatables.fixedcolumns.js"></script>
+    <script src="bower_components/angularjs-datatables/dist/plugins/fixedheader/angular-datatables.fixedheader.js"></script>
+    <script src="bower_components/angularjs-datatables/dist/plugins/scroller/angular-datatables.scroller.js"></script>
+    <script src="bower_components/angularjs-datatables/dist/plugins/tabletools/angular-datatables.tabletools.js"></script>
+    <script src="bower_components/angularjs-datatables/dist/plugins/buttons/angular-datatables.buttons.js"></script>
+    <script src="bower_components/angularjs-datatables/dist/plugins/select/angular-datatables.select.js"></script>
+    <script src="bower_components/ngmap/build/scripts/ng-map.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/chart.js/dist/Chart.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <!-- endbower -->
+    <!-- node:js -->
+    <script src="./node_modules/neo4j-driver/lib/browser/neo4j-web.min.js"></script>
+    <script src="./node_modules/neovis.js/dist/neovis.js"></script>
+    <script src="./node_modules/popoto/dist/popoto.js"></script>
+    <script src="./node_modules/export-from-json/dist/umd/index.min.js"></script>
+    <script src="./node_modules/conditionize/dist/conditionize.min.js"></script>
+    <!-- endnode -->
+     <!-- build:js(app) scripts/vendor.js -->
+	<script src="scripts/vendor/shim.js"></script>
+	<script src="scripts/vendor/xlsx.full.min.js"></script>
+	<script src="scripts/vendor/jquery.xml2json.js"></script>
+	<script src="scripts/vendor/spin.min.js"></script>
+  <!--<script src="scripts/vendor/markerclusterer.js"></script>-->
+  <script src="scripts/vendor/others.js"></script>
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/unicas.js"></script>
+		    <script src="scripts/controllers/record.js"></script>
+        <script src="scripts/controllers/presselocale.js"></script>
+        <script src="scripts/controllers/graphevis.js"></script>
+        <script src="scripts/controllers/documentation.js"></script>
+        <script src="scripts/controllers/graphepopoto.js"></script>
+        <script src="scripts/controllers/exports.js"></script>
+        <script src="scripts/services/serviceilntorcrapi.js"></script>
+        <script src="scripts/services/servicesudocnotice.js"></script>
+        <script src="scripts/directives/loading.js"></script>
+        <script src="scripts/directives/customdatatable.js"></script>
+        <script src="scripts/services/serviceunimarcnotice.js"></script>
+        <script src="scripts/services/servicerdfnotice.js"></script>
+        <script src="scripts/services/servicemultiwhereapi.js"></script>
+        <script src="scripts/services/serviceautocompletion.js"></script>
+        <!-- endbuild -->
+</body>
+</html>

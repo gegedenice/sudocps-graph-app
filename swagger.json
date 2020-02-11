@@ -1,0 +1,98 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Sudoc-PS App API",
+      "description": "Documentation de l'API sur les données du Sudoc-PS CR PACA/Nice à partir d'une modélisation type propriété de graphe (Neo4j)",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "Unicas",
+        "description": "API pour les données sur les unicas"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/unicas": {
+        "get": {
+          "tags": [
+            "Unicas"
+          ],
+          "summary": "Obtenir tous les unicas du CR",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Unicas"
+              }
+            }
+          }
+        }
+      },
+      "/rcr2unicas/{rcr}": {
+        "parameters": [
+          {
+            "name": "rcr",
+            "in": "path",
+            "required": true,
+            "description": "identifiant rcr de la bibliothèque",
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": [
+            "Unicas"
+          ],
+          "summary": "Obtenir tous les unicas du rcr demandé",
+          "responses": {
+            "200": {
+              "description": "RCR ok",
+              "schema": {
+                "$ref": "#/definitions/Unicas"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Unica": {
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "titre_cle": {
+            "type": "string"
+          },
+          "issn": {
+            "type": "string"
+          },
+          "titre": {
+            "type": "string"
+          },
+          "ppn": {
+            "type": "string",
+            "uniqueItems": true
+          }
+        }
+      },
+      "Unicas": {
+        "type": "array",
+        "$ref": "#/definitions/Unica"
+      }
+    }
+  }

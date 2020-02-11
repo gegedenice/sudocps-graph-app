@@ -1,0 +1,51 @@
+{
+  "name": "sudocps",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "devDependencies": {
+    "autoprefixer-core": "^5.2.1",
+    "grunt": "^1.0.4",
+    "grunt-angular-templates": "^1.2.0",
+    "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-connect": "^2.1.0",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-htmlmin": "^3.1.0",
+    "grunt-contrib-imagemin": "^3.1.0",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-filerev": "^2.1.2",
+    "grunt-google-cdn": "^0.4.3",
+    "grunt-jscs": "^3.0.1",
+    "grunt-newer": "^1.1.0",
+    "grunt-ng-annotate": "^3.0.0",
+    "grunt-postcss": "^0.5.5",
+    "grunt-svgmin": "^6.0.0",
+    "grunt-usemin": "^3.0.0",
+    "grunt-wiredep": "^3.0.1",
+    "jit-grunt": "^0.9.1",
+    "jshint-stylish": "^1.0.0",
+    "time-grunt": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "conditionize": "^1.0.0",
+    "cors": "^2.8.5",
+    "export-from-json": "^1.1.4",
+    "express": "^4.17.1",
+    "express-http-proxy": "^1.6.0",
+    "http-proxy-middleware": "^0.20.0",
+    "neo4j-driver": "^1.7.6",
+    "neovis.js": "^1.2.1",
+    "nodemon": "^1.19.3",
+    "popoto": "^2.0.18",
+    "swagger-ui-express": "^4.1.2"
+  }
+}

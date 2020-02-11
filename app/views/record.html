@@ -1,0 +1,39 @@
+<!--controleur déjà déclaré dans app.js <div ng-controller="RecordCtrl">-->
+  <div>
+<div class="row">
+<div class="col s2">
+<p><a class="waves-effect waves-default" ng-href="#!/unicas"><i class="material-icons left">keyboard_arrow_left</i>Retour liste</a></p>
+</div>
+</div>
+<div class="row">
+    <div class="col s12 m4 l4">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">{{title}}</span>
+          <p>Date : {{date}}</p>
+		  <p>Editeur : {{publisher}}</p>
+        </div>
+        <div class="card-action">
+          <a href="#">Notice Sudoc</a>
+        </div>
+      </div>
+    </div>
+	<div class="col s12 m4 l6">
+	<!--<p ng-repeat="link in links">{{link.type}} : {{link.titre}}</p>-->
+	<div id="mynetwork"></div>
+	</div>
+	<div class="col s12 m4 l2">
+	<div class="card teal">
+        <div class="card-content white-text">
+          <span class="card-title">Noeud du graphe survolé</span>
+		  PPN : <div id="eventSpan"></div>
+          <div class="collection" id="eventSpanLocs">		  
+		  </div>
+        </div>
+        <div class="card-action">
+          <a href="#">Notice Sudoc</a>
+          <div id="eventSpanPeriscope"></div>
+        </div>
+      </div>
+  </div>
+</div>
