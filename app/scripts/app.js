@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
 	  'angular.filter',
-	  'datatables',
+    'datatables',
+    'dx',
     'ngMap',
     'chart.js'
     //,'ui.materialize'
@@ -33,6 +34,11 @@ angular
         templateUrl: 'views/unicas.html',
         controller: 'UnicasCtrl',
         controllerAs: 'unicas'
+      })
+      .when('/unicas2', {
+        templateUrl: 'views/unicas2.html',
+        controller: 'Unicas2Ctrl',
+        controllerAs: 'unicas2'
       })
       .when('/record/:ppn', {
         templateUrl: 'views/record.html',

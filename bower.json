@@ -21,7 +21,10 @@
     "angularjs-datatables": "^0.5.9",
     "ngmap": "^1.18.4",
     "d3": "^5.9.2",
-    "angular-chart.js": "^1.1.1"
+    "angular-chart.js": "^1.1.1",
+    "devextreme": "^19.1.11",
+    "jszip": "Stuk/jszip#^3.5.0",
+    "underscore": "^1.11.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

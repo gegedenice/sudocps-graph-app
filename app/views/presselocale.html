@@ -30,6 +30,7 @@
                             <th>ARK</th>
                             <th>ISSN</th>
                             <th>Titre</th>
+                            <th>Zone d'édition (lieu|date)</th>
                             <th>Département(s) concerné(s)</th>
                             <th>Lien notice Sudoc</th>
                             <th>Localisations Sudoc (CR)</th>
@@ -42,6 +43,7 @@
                                   <td class="td-ppn"><a ng-href="http://presselocaleancienne.bnf.fr{{data.record.ark}}" target="_blanck">{{data.record.ark}}</a></td>
                                   <td class="td-ppn">{{data.record.issn}}</td>
                                   <td class="td-titre">{{data.record.titre}}</td>
+                                  <td class="td-titre">{{data.record.edition}}</td>
                                   <td class="td-small"><span class="new badge" data-badge-caption="" ng-repeat="dpt in data.depts_about")>{{dpt.name}}</span></td>
                                   <td class="td-ppn"><a ng-href="{{data.sudoc_record.url_sudoc}}" target="_blanck">{{data.sudoc_record.url_sudoc}}</a></td>
                                   <td class="td-small"><span class="new badge" data-badge-caption="" ng-repeat="bib in data.sudoc_locs")>{{bib.name}}</span></td>

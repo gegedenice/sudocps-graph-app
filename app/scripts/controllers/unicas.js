@@ -11,10 +11,11 @@ angular.module('sudocpsApp')
   .controller('UnicasCtrl', ['$scope','$http', '$filter', 'NgMap', '$q', 'DTOptionsBuilder', 'DTColumnBuilder', 'DTColumnDefBuilder',function ($scope,$http,$filter,NgMap,$q, DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
 	$scope.dynMarkers = [];$scope.dynMarkers2 = [];
   $scope.loading = true;
-  $http.get("http://localhost:9000/api/unicas") 
+  $http.get("./api/unicas") 
   .then(function(response) {
 	 $scope.loading = false;
     $scope.datas = response.data.unicas;
+    console.log(response.data)
    /*directive datatable
    $scope.dtOptions = DTOptionsBuilder
        .fromFnPromise(function() {

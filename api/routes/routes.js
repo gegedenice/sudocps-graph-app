@@ -3,6 +3,7 @@ const path = require('path')
 module.exports = function(app) {
   var Unicas = require('../models/unicas.js');
   var Presselocale = require('../models/presselocale.js');
+  var Middleware = require('../models/middleware.js');
 
   //testing it's ok
   app.route('/test')
@@ -29,5 +30,8 @@ app.route('/widget')
 
   app.route('/api/rcr2presselocale/:rcr')
   .get(Presselocale.presselocaleByRcr);
+
+  app.route('/middleware')
+  .post(Middleware.data2graph);
 
     };
