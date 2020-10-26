@@ -35,11 +35,11 @@ angular
         controller: 'UnicasCtrl',
         controllerAs: 'unicas'
       })
-      .when('/unicas2', {
+      /*.when('/unicas2', {
         templateUrl: 'views/unicas2.html',
         controller: 'Unicas2Ctrl',
         controllerAs: 'unicas2'
-      })
+      })*/
       .when('/record/:ppn', {
         templateUrl: 'views/record.html',
         controller: 'RecordCtrl',

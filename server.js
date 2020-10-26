@@ -21,10 +21,10 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/proxy', proxy('http://www.idref.fr'));
 app.use('/sudoc', proxy('http://www.sudoc.fr'));
 //Important : proxy to allow bolt (websockets) connection from browser, doesn't work if no proxy
-app.use(
+/*app.use(
     '/wsproxy',
     wsProxy({ target: 'bolt://localhost:7687', ws: true })
-  );
+  );*/
 
 //app.use(express.static('./api/third'));
 app.use('/api/third',  express.static(__dirname + '/api/third'));

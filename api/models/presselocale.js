@@ -20,9 +20,9 @@ exports.presselocale = function (req, res) {
              else if (record._fields.filter(Boolean).length == "4" && nums.length != "0")
              content.push({record:record._fields[0].properties,depts_about:dpts,numerisation:nums});
              if(record._fields.filter(Boolean).length == "5" && record._fields[2] != null && nums.length == "0")
-             content.push({record:record._fields[0].properties,depts_about:dpts,sudoc_record:Object.assign(record._fields[2].properties,{"url_sudoc":"http://www.sudoc.fr/"+record._fields[2].properties.ppn}),sudoc_locs:bibs});
+             content.push({record:record._fields[0].properties,depts_about:dpts,sudoc_record:Object.assign(record._fields[2].properties,{"url":"http://www.sudoc.fr/"+record._fields[2].properties.ppn}),sudoc_locs:bibs});
              else if (record._fields.filter(Boolean).length == "5" && record._fields[2] != null && nums.length != "0")
-              content.push({record:record._fields[0].properties,depts_about:dpts,sudoc_record:Object.assign(record._fields[2].properties,{"url_sudoc":"http://www.sudoc.fr/"+record._fields[2].properties.ppn}),sudoc_locs:bibs,numerisation:nums});          
+              content.push({record:record._fields[0].properties,depts_about:dpts,sudoc_record:Object.assign(record._fields[2].properties,{"url":"http://www.sudoc.fr/"+record._fields[2].properties.ppn}),sudoc_locs:bibs,numerisation:nums});          
         },
         onCompleted: function () {
             // Completed!
@@ -53,9 +53,9 @@ exports.presselocale = function (req, res) {
         else if (record._fields.filter(Boolean).length == "4" && nums.length != "0")
         content.push({record:record._fields[0].properties,depts_about:dpts,numerisation:nums});
         if(record._fields.filter(Boolean).length == "5" && record._fields[2] != null && nums.length == "0")
-        content.push({record:record._fields[0].properties,depts_about:dpts,sudoc_record:Object.assign(record._fields[2].properties,{"url_sudoc":"http://www.sudoc.fr/"+record._fields[2].properties.ppn}),sudoc_locs:bibs});
+        content.push({record:record._fields[0].properties,depts_about:dpts,sudoc_record:Object.assign(record._fields[2].properties,{"url":"http://www.sudoc.fr/"+record._fields[2].properties.ppn}),sudoc_locs:bibs});
         else if (record._fields.filter(Boolean).length == "5" && record._fields[2] != null && nums.length != "0")
-         content.push({record:record._fields[0].properties,depts_about:dpts,sudoc_record:Object.assign(record._fields[2].properties,{"url_sudoc":"http://www.sudoc.fr/"+record._fields[2].properties.ppn}),sudoc_locs:bibs,numerisation:nums});     
+         content.push({record:record._fields[0].properties,depts_about:dpts,sudoc_record:Object.assign(record._fields[2].properties,{"url":"http://www.sudoc.fr/"+record._fields[2].properties.ppn}),sudoc_locs:bibs,numerisation:nums});     
       },
       onCompleted: function () {
           // Completed!

@@ -28,6 +28,7 @@ angular.module('sudocpsApp')
             return {"titre":unica.record.titre,
                     "ppn":unica.record.ppn,
                     "issn":unica.record.issn,
+                    "309": unica.record.controle,
                     "bibliothèque":unica.loc.name,
                     "état de collection":unica.loc.etat_de_collection,
                     "ark":unica.ark_bnf,
@@ -51,6 +52,7 @@ angular.module('sudocpsApp')
       return {"titre":unica.record.titre,
               "ppn":unica.record.ppn,
               "issn":unica.record.issn,
+              "309": unica.record.controle,
               "état de collection":unica.loc.etat_de_collection,
               "ark":unica.ark_bnf,
               "lien presse locale": unica.url_presselocale,
@@ -83,6 +85,7 @@ $scope.presseExportAll = function(){
       }
       return {"département":presselocale.depts_about.map(function(dept){return dept.name}).join(";"),
               "titre":presselocale.record.titre,
+              "édition":presselocale.record.edition,
               "ark":presselocale.record.ark,
               "issn":presselocale.record.issn,
               "ppn":ppn,

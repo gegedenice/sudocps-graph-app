@@ -2,92 +2,225 @@
 
 /**
  * @ngdoc function
- * @name sudocpsApp.controller:UnicasCtrl
+ * @name sudocpsApp.controller:Unicas2Ctrl
  * @description
- * # UnicasCtrl
+ * # Unicas2Ctrl
  * Controller of the sudocpsApp
  */
 angular.module('sudocpsApp')
-  .controller('UnicasCtrl', ['$scope','$http', '$filter', 'NgMap', '$q', 'DTOptionsBuilder', 'DTColumnBuilder', 'DTColumnDefBuilder',function ($scope,$http,$filter,NgMap,$q, DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
-	$scope.dynMarkers = [];$scope.dynMarkers2 = [];
-  $scope.loading = true;
-  $http.get("./api/unicas") 
-  .then(function(response) {
-	 $scope.loading = false;
-    $scope.datas = response.data.unicas;
-    console.log(response.data)
-   /*directive datatable
-   $scope.dtOptions = DTOptionsBuilder
-       .fromFnPromise(function() {
-          var defer = $q.defer();
-          $http.get('http://localhost:3000/api/unicas').then(function(result) {
-            defer.resolve(response.data.unicas);
-          });
-          return defer.promise;
-        })    
-        .withOption('lengthMenu', [[10, 50, 100,-1], [10, 50, 100,'All']]);
-                  
-      $scope.dtColumns = [       
-         DTColumnBuilder.newColumn(null).withTitle('#').renderWith(function(data, type, full, meta) {
-            return meta.row + 1
-         }),  
-         DTColumnBuilder.newColumn('record.ppn').withTitle('ppn'),
-         DTColumnBuilder.newColumn('record.issn').withTitle('issn')
-      ]    */
- 
-    //bar chart
-    //$scope.series = [];
-    $scope.keys = [];
-    $scope.values = [];
-    $scope.barData = $filter('countBy')($scope.datas, "loc.name");
-    $scope.orderBardata = Object.keys($scope.barData).map(key => ({ key: key, value: $scope.barData[key] })).sort((first, second) => (first.value < second.value) ? -1 : (first.value > second.value) ? 1 : 0 );
-    console.log($scope.barData)
-    console.log($scope.orderBardata);
-    angular.forEach($scope.barData, function(value, key) {
-      $scope.keys.push(key);
-      $scope.values.push(value);
-    });
-  //console.log($scope.keys);
-  //console.log($scope.values);
-	/*marker & cluster on map
-   NgMap.getMap().then(function(map) {
-      for (var i=0; i<$scope.datas.length; i++) {
-        var latLng = new google.maps.LatLng($scope.datas[i].bib.latitude, $scope.datas[i].bib.longitude);
-        $scope.dynMarkers.push(new google.maps.Marker({position:latLng,bib: $scope.datas[i].bib.shortname}));
-      }
-     $scope.markerClusterer = new MarkerClusterer(map, $scope.dynMarkers, {imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m'});
-  $scope.searchFilter = function() {
-  $scope.newmarkers2 = [];
-  for (i = 0; i < $scope.dynMarkers.length; i++) {
-    $scope.marker2 = $scope.dynMarkers[i];
-	console.log($scope.marker2.label);
-    if ($scope.marker2.label.indexOf($scope.search) > -1 || $scope.marker2.bib.indexOf($scope.search) > -1 || $scope.search == "0") {
-      $scope.marker2.setVisible(true);
-      $scope.newmarkers2.push($scope.marker2);
-    }
-    else {
-      $scope.marker2.setVisible(false);
-    }
-  }
-  $scope.markerClusterer.clearMarkers();
-  $scope.markerClusterer.addMarkers($scope.newmarkers2);
-                
+    .controller('UnicasCtrl', ['$scope', '$http', '$filter', '$q', function ($scope, $http, $filter, $q) {
+        var url = "./api/unicas"
+
+        function chartData(s) {
+            var a = s.map(function (d) { return { "loc": d.loc.name } })
+            var counts = _.countBy(a, 'loc');
+            var data = _.map(counts, function (value, key) {
+                return {
+                    x: key,
+                    y: value
+                };
+            });
+            return _.sortBy(data, 'y').reverse()
+        }
+
+        function mapData(s) {
+            return s.map(function (d) {
+                return {
+                    "location": [d.loc.latitude, d.loc.longitude],
+                    "tooltip": {
+                        "text": d.record.titre
+                    }
+                }
+            })
+        }
+        var store = new DevExpress.data.CustomStore({
+            // key: "OrderNumber",
+            load: function (loadOptions) {
+                return $http.get(url)
+                    .then(function (response) {
+                        loadOptions.requireTotalCount = false;
+                        return { data: response.data.unicas };
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
             }
-	 $scope.filterMarkers = function() {
-  $scope.newmarkers1 = [];
-  for (i = 0; i < $scope.dynMarkers.length; i++) {
-    $scope.marker1 = $scope.dynMarkers[i];
-    if ($scope.marker1.bib.indexOf($scope.bibRadio) > -1 || $scope.bibRadio.length == "0") {
-      $scope.marker1.setVisible(true);
-      $scope.newmarkers1.push($scope.marker1);
-    }
-    else {
-      $scope.marker1.setVisible(false);
-    }
-  }
-  $scope.markerClusterer.clearMarkers();
-  $scope.markerClusterer.addMarkers($scope.newmarkers1);
-}
-    });*/
-  });
-   }]);
+        })
+        var chartStore = new DevExpress.data.CustomStore({
+            // key: "OrderNumber",
+            load: function (loadOptions) {
+                return $http.get(url)
+                    .then(function (response) {
+                        loadOptions.requireTotalCount = false;
+                        return chartData(response.data.unicas);
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
+            }
+        })
+
+        var mapStore = new DevExpress.data.CustomStore({
+            // key: "OrderNumber",
+            load: function (loadOptions) {
+                return $http.get(url)
+                    .then(function (response) {
+                        loadOptions.requireTotalCount = false;
+                        return mapData(response.data.unicas);
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
+            }
+        })
+
+        $scope.chartOptions = {
+            dataSource: chartStore,
+            series: {
+                argumentField: "x",
+                valueField: "y",
+                name: "Nombre d'unicas",
+                type: "bar",
+                color: '#ffaa66'
+            },
+            argumentAxis: {
+                label: {
+                    overlappingBehavior: "rotate",
+                    rotationAngle: 45
+                }
+            },
+            tooltip: {
+                enabled: true,
+                customizeTooltip: function (arg) {
+                    return {
+                        text: arg.argumentText + " - " + arg.valueText
+                    };
+                }
+            }
+        };
+        $scope.dataGridOptions = {
+            dataSource: store,
+            showBorders: true,
+            requireTotalCount: false,
+            showBorders: true,
+            rowAlternationEnabled: true,
+            allowColumnReordering: true,
+            columnAutoWidth: false,
+            columnFixing: {
+                enabled: true
+            },
+            "export": {
+                enabled: true,
+                fileName: "unicas"
+            },
+            columnChooser: {
+                enabled: true,
+                mode: "select"
+            },
+            sorting: {
+                mode: "multiple"
+            },
+            paging: {
+                pageSize: 10
+            },
+            pager: {
+                showPageSizeSelector: true,
+                allowedPageSizes: [10, 20, 50, 100, 150],
+                showInfo: true
+            },
+            headerFilter: {
+                visible: true
+              },
+            filterPanel: { visible: true },
+            searchPanel: {
+                visible: true
+            },
+            groupPanel: {
+                emptyPanelText: "Glisser/déposer ici des en-têtes de colonnes pour effectuer des regroupements",
+                visible: true
+            },
+            columns: [{
+                caption: "PPN",
+                dataField: "record.ppn",
+                dataType: "string",
+                headerFilter: {
+                    allowSearch: true
+                }
+            },
+            {
+                caption: "Titre",
+                dataField: "record.titre",
+                dataType: "string",
+                headerFilter: {
+                    allowSearch: true
+                }
+            }, {
+                caption: "ISSN",
+                dataField: "record.issn",
+                dataType: "string",
+                headerFilter: {
+                    allowSearch: true
+                }
+            }, {
+                caption: "Contrôle 309",
+                dataField: "record.controle",
+                dataType: "string"
+            }, {
+                caption: "Bibliothèque",
+                dataField: "loc.name",
+                dataType: "string",
+                headerFilter: {
+                    allowSearch: true
+                }
+                //groupIndex: 0
+            }, {
+                caption: "Bib RCR",
+                dataField: "loc.rcr",
+                dataType: "string",
+                headerFilter: {
+                    allowSearch: true
+                }
+                //groupIndex: 0
+            }, {
+                caption: "Etat de collection (source Sudoc)",
+                dataField: "loc.etat_de_collection",
+                dataType: "string",
+                headerFilter: {
+                    allowSearch: true
+                }
+            }, {
+                caption: "Notice Presse locale ancienne (source BnF)",
+                dataField: "url_presselocale",
+                cellTemplate: function (container, options) {
+                    return $("<a>", { "href": options.value, "target": "_blank" }).text(options.value);
+                },
+                headerFilter: {
+                    allowSearch: true
+                }
+            },
+            {
+                caption: "Numérisations (source BnF)",
+                dataField: "numerisation",
+                allowFiltering: true,
+                cellTemplate: function (container, options) {
+                    var t = (options.value || []).map(e => {
+                      return e.lieu + " (" + e.url + ")"
+                    })
+                    container.append("<div>" + t.join(", ") + "</div>")
+                  },
+            }
+           ],
+            sortByGroupSummaryInfo: [{
+                summaryItem: "count"
+            }],
+            summary: {
+                totalItems: [{
+                    column: "record.ppn",
+                    summaryType: "count",
+                    displayFormat: "{0} unicas"
+                }],
+                groupItems: [{
+                    column: "record.ppn",
+                    summaryType: "count",
+                    displayFormat: "{0} unicas",
+                }]
+            }
+        };
+    }]);

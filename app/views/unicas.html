@@ -2,72 +2,9 @@
 <div id="top" loading="loading">
 <!--controleur déjà déclaré dans app.js <div ng-controller="UnicasCtrl">-->
 <div class="row">
-  <div class="col s12 m4 l3">
-  <input id="search" type="text" class="validate" placeholder="Chercher (titre, ppn, bibliothèque)" ng-model="search" ng-change="searchFilter()"> 
-  
-   <p>
-      <label>
-        <input type="radio" class="with-gap" name="bibRadio" ng-model="bibRadio.loc.name" value="" checked />
-        <span>Toutes les bibs</span>
-      </label>
-    </p>
-	<p ng-repeat="data in datas | unique: 'loc.name' | filter:search">
-	 <label>
-        <!--<input type="radio" class="with-gap" name="bibRadio" ng-model="$parent.bibRadio.loc.name" value="{{data.loc.name}}" ng-click="filterMarkers()"/>-->
-        <input type="radio" class="with-gap" name="bibRadio" ng-model="$parent.bibRadio.loc.name" value="{{data.loc.name}}"/>
-        <span>{{data.loc.name}} ({{(totalFilteredResults|filter:data.loc.name).length}})</span>
-      </label>
-	</p>
-  </div>
-<div class="col s12 m8 l9"> 
-<p></p>
-<div class="chip pink darken-4">
-<span class="white-text">Nombre de résultats : {{(totalFilteredResults).length}}</span>
- </div>
-<!--<div map-lazy-load="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMZfjPj0DpsRb2c_3SspVkR9T8BxmKDBM"> 
- <ng-map id="map" center="[43.7154693,7.2656745]" zoom="8" mayTypeId="TERRAIN">
-	  </ng-map>
-    </div>-->
-    <canvas id="bar" height="100" class="chart chart-bar" chart-data="values" chart-labels="keys" chart-series="series"></canvas>
-    <table datatable="ng" class="row-border hover">
-               <thead>
-          <tr>
-              <th>PPN</th>
-              <th>ISSN</th>
-			        <th>Titre</th>
-              <th>Bibliothèque</th>
-              <th>Etat de collection</th>
-			        <th>Lien notice Presse locale ancienne (BnF)</th>
-			        <th>Numérisation</th>
-          </tr>
-        </thead>
-		<tbody>               
-				<tr dt-rows ng-repeat="data in datas | filter:bibRadio | filter:search as totalFilteredResults">
-            <td class="td-ppn"><a ng-href="http://www.sudoc.fr/{{data.record.ppn}}" target="_blanck">{{data.record.ppn}}</a></td>
-            <td class="td-ppn">{{data.record.issn}}</td>
-					<td class="td-titre">{{data.record.titre}} (<a ng-href="#!/record/{{data.record.ppn}}">Filiation</a>)</td>
-                    <td class="td-small"><span class="new badge" data-badge-caption="">{{data.loc.name}}</span></td>
-                    <td class="td-small">{{data.loc.etat_de_collection}}</td>
-					<td class="td-small"><a ng-href="{{data.url_presselocale}}" target="_blanck">{{data.url_presselocale}}</a></td>
-					<td class="td-small">{{data.numerisation.lieu}} <a ng-href="{{data.numerisation.url}}" target="_blanck">{{data.numerisation.url}}</a></td>
-                </tr>
-                </tbody>
-				<tfoot>
-            <tr>
-                <th>PPN</th>
-                <th>ISSN</th>
-                <th>Titre</th>
-                <th>Bibliothèque</th>
-                <th>Etat de collection</th>
-                <th>Ark BnF</th>
-                <th>Numérisation</th>
-            </tr>
-        </tfoot>
-            </table>
-            <!--<table datatable
-            dt-options="dtOptions" 
-            dt-columns="dtColumns">
-         </table>-->
+  <div class="col s12 m12 l12">
+    <div id="chart" dx-chart="chartOptions"></div>
+<div id="gridContainer" dx-data-grid="dataGridOptions"></div>
 </div>
 </div>
 </div>
