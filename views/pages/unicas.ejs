@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include ('../partials/head'); -%>
+</head>
+
+<body>
+    <header>
+        <%- include ('../partials/navbar') -%>
+    </header>
+    <main>
+            <h3 class="header">
+                <%= page %>
+            </h3>
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div id="chart"></div>
+                    <div id="grid"></div>
+                </div>
+            </div>
+    </main>
+
+</body>
+<%- include ('../partials/script') -%>
+<script src="./scripts/unicas.js"></script>
+</html>

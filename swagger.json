@@ -1,98 +1,356 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "version": "1.0.0",
-      "title": "Sudoc-PS App API",
-      "description": "Documentation de l'API sur les données du Sudoc-PS CR PACA/Nice à partir d'une modélisation type propriété de graphe (Neo4j)",
-      "license": {
-        "name": "MIT",
-        "url": "https://opensource.org/licenses/MIT"
-      }
+  "info": {
+    "title": "API sudocps-pro-app",
+    "description": "Documentation Open API des API du projet sudocps-pro-app. Les données exposées sont une représentation des noeuds et relations issus de la modélisation native en property graph dans Neo4j.",
+    "contact": {
+      "email": "geraldine.geoffroy@univ-cotedazur.fr"
     },
-    "host": "localhost:3000",
-    "basePath": "/api",
-    "tags": [
-      {
-        "name": "Unicas",
-        "description": "API pour les données sur les unicas"
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "swagger": "2.0",
+  "host": "http://sudocps.univ-cotedazur.fr/sudocps-pro-app",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "unicas",
+      "description": "Renvoie toutes les notices d'unicas (données bibliographiques Sudoc) du CR PACA/Nice avec leur localisation"
+    },
+    {
+      "name": "presselocale",
+      "description": "Renvoie toutes les notices des titres de presse locale ancienne (données bibliographiques BnF) repertoriées pour le territoire du CR PACA/Nice, enrichis avec les identifiants et les localisations Sudoc quand disponibles et les départements en tant que sujet de la publication",
+      "externalDocs": {
+        "description": "Site web Presse locale ancienne",
+        "url": "http://presselocaleancienne.bnf.fr/accueil"
       }
-    ],
-    "schemes": [
-      "http"
-    ],
-    "consumes": [
-      "application/json"
-    ],
-    "produces": [
-      "application/json"
-    ],
-    "paths": {
-      "/unicas": {
-        "get": {
-          "tags": [
-            "Unicas"
-          ],
-          "summary": "Obtenir tous les unicas du CR",
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "$ref": "#/definitions/Unicas"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/unicas": {
+      "get": {
+        "tags": [
+          "unicas"
+        ],
+        "summary": "/unicas",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Un tableau d'ojets Json contenant les principales métadonnées bibliographiques et les données de localisation de tous les unicas du CR",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "unicas": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Unica"
+                  }
+                }
               }
             }
           }
-        }
-      },
-      "/rcr2unicas/{rcr}": {
+      }
+    }
+  },
+    "/unicas/rcr/{rcr}": {
+      "get": {
+        "tags": [
+          "unicas"
+        ],
+        "summary": "/unicas/rcr/{rcr}",
+        "consumes": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "rcr",
             "in": "path",
-            "required": true,
-            "description": "identifiant rcr de la bibliothèque",
-            "type": "string"
+            "required": true
           }
         ],
-        "get": {
-          "tags": [
-            "Unicas"
-          ],
-          "summary": "Obtenir tous les unicas du rcr demandé",
-          "responses": {
-            "200": {
-              "description": "RCR ok",
-              "schema": {
-                "$ref": "#/definitions/Unicas"
+        "responses": {
+          "200": {
+            "description": "Un tableau d'ojets Json contenant les principales métadonnées bibliographiques et les données de localisation pour un RCR donné en paramètre",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "object",
+                  "properties": {
+                    "rcr": {
+                      "type": "string",
+                      "example": "060885105"
+                    }
+                  }
+                },
+                "unicas": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Unica"
+                  }
+                }
               }
             }
           }
         }
       }
     },
-    "definitions": {
-      "Unica": {
-        "properties": {
-          "source": {
-            "type": "string"
-          },
-          "titre_cle": {
-            "type": "string"
-          },
-          "issn": {
-            "type": "string"
-          },
-          "titre": {
-            "type": "string"
-          },
-          "ppn": {
-            "type": "string",
-            "uniqueItems": true
+    "/presselocale": {
+      "get": {
+        "tags": [
+          "presselocale"
+        ],
+        "summary": "/presselocale",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Un tableau d'ojets Json contenant les principales métadonnées bibliographiques de tous les titres de presse locale ancienne référencés pour le CR, avec les données liées de type notices équivalentes dans le Sudoc et versions numérisées",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "presselocale": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Presselocale"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/presselocale/rcr/{rcr}": {
+      "get": {
+        "tags": [
+          "presselocale"
+        ],
+        "summary": "/presselocale/rcr/{rcr}",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "rcr",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Un tableau d'ojets Json contenant les principales métadonnées bibliographiques des titres de presse locale ancienne référencés pour un RCR donné, avec les données liées issuses de la modélisation native en property graph dans Neo4j",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "object",
+                  "properties": {
+                    "rcr": {
+                      "type": "string",
+                      "example": "060885105"
+                    }
+                  }
+                },
+                "presselocale": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Presselocale"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+},
+  "definitions": {
+    "Presselocale": {
+      "type": "object",
+      "properties": {
+        "record": {
+          "type": "object",
+          "properties": {
+            "edition": {
+              "type": "string",
+              "example": "Nice|1908-1910"
+            },
+            "ark": {
+              "type": "string",
+              "example": "/ark:/12148/cb32858598x"
+            },
+            "issn": {
+              "type": "string",
+              "example": "1245-818X"
+            },
+            "titre": {
+              "type": "string",
+              "example": "La Revue des lettres et des arts"
+            }
+          }
+        },
+        "depts_about": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Alpes-Maritimes"
+              },
+              "number": {
+                "type": "string",
+                "example": "06"
+              }
+            },
+            "required": [
+              "name",
+              "number"
+            ]
+          }
+        },
+        "sudoc_record": {
+          "type": "object",
+          "properties": {
+            "issn": {
+              "type": "string",
+              "example": "1245-818X"
+            },
+            "titre": {
+              "type": "string",
+              "example": "La Revue des lettres et des arts"
+            },
+            "ppn": {
+              "type": "string",
+              "example": "038749858"
+            },
+            "url": {
+              "type": "string",
+              "example": "http://www.sudoc.fr/038749858"
+            }
+          }
+        },
+        "sudoc_locs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rcr": {
+                "type": "string",
+                "example": "060885105"
+              },
+              "name": {
+                "type": "string",
+                "example": "NICE-Bibl.Chevalier de Cessole"
+              },
+              "latitude": {
+                "type": "string",
+                "example": "43.6956246"
+              },
+              "longitude": {
+                "type": "string",
+                "example": "7.259380900000001"
+              }
+            },
+            "required": [
+              "rcr",
+              "name",
+              "latitude",
+              "longitude"
+            ]
+          }
+        },
+        "numerisation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "example": "https://gallica.bnf.fr/ark:/12148/cb32858598x/date"
+              },
+              "etab": {
+                "type": "string",
+                "example": "Bibliothèque nationale de France"
+              }
+            },
+            "required": [
+              "url",
+              "etab"
+            ]
           }
         }
       },
-      "Unicas": {
-        "type": "array",
-        "$ref": "#/definitions/Unica"
-      }
+      "required": [
+        "record",
+        "depts_about",
+        "sudoc_record",
+        "sudoc_locs",
+        "numerisation"
+      ]
+    },
+    "Unica": {
+      "type": "object",
+      "properties": {
+        "record": {
+          "type": "object",
+          "properties": {
+            "issn": {
+              "type": "string",
+              "example": "1592-3959"
+            },
+            "titre": {
+              "type": "string",
+              "example": "Il Mattino illustrato"
+            }
+          },
+          "ppn": {
+            "type": "string",
+            "example": "192162209"
+          }
+        },
+        "loc": {
+          "type": "object",
+          "properties": {
+            "rcr": {
+              "type": "string",
+              "example": "060885105"
+            },
+            "name": {
+              "type": "string",
+              "example": "NICE-Bibl.Chevalier de Cessole"
+            },
+            "latitude": {
+              "type": "string",
+              "example": "43.6956246"
+            },
+            "longitude": {
+              "type": "string",
+              "example": "7.259380900000001"
+            },
+            "etat_de_collection": {
+              "type": "string",
+              "example": "no. 43 (27-oct-1930) ; no. 23 (13-jun-1932)"
+            }
+          }
+        }
+      },
+      "required": [
+        "record",
+        "loc"
+      ]
     }
   }
+}

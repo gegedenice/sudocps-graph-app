@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include ('../partials/head'); -%>
+</head>
+
+<body>
+  <header>
+    <%- include ('../partials/navbar') -%>
+  </header>
+  <main>
+    <h4 class="header">
+      <%= page %>
+    </h4>
+    <div class="row" style="margin-bottom: 0;margin-left:5px;margin-right:5px;">
+      <div class="col s12">
+        <p>Cette page est à destination des Centres du réseau Sudoc-PS qui souhaiteraient utiliser l'application avec
+          leurs propres métadonnées.</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="row" style="margin-bottom: 0;margin-left:5px;margin-right:5px;">
+      <h5 class="header">Le projet</h5>
+      <p>L'idée générale de cette application est de proposer <b>une vue d'ensemble, intégrée et explorable</b> des unicas et des titres de
+        presse locale ancienne sur le territoire couvert par le CR PACA/Nice (Alpes-Maritimes, Var et Monaco).</p>
+        <p>Pour ce faire, et pour résoudre le problème de l'hétérogénéité des sources de données structurées mais non
+        interopérables, les données sont stockées et remodélisées en noeuds connectés entre eux par des relations typées
+        dans une base de données orientée graphe (<a href="https://neo4j.com/" target="_blanck">Neo4j</a>).</p>
+        <p>La couche applicative est branchée sur la base de donnée via un driver, et interroge le graphe par un middleware
+        d'API afin de restituer les données selon différents formats d'exposition (API, visualisations, widget).
+      </p>
+      <p class="caption">La génèse et la description du projet ont été documentés dans plusieurs billets sur le blog du
+        CR PACA/Nice, vous pouvez retrouver l'ensemble des 5 billets relatifs à l'application <a href="http://bibliotheque-blogs.unice.fr/sudoc-ps/tag/application-unicapresse-locale-ancienne/" target="_blanck">ici</a>.</p>
+      <p class="caption">Parmi ceux-çi, <a href="http://bibliotheque-blogs.unice.fr/sudoc-ps/2019/06/28/enrichir-et-faire-parler-les-donnees-du-cr-45-passage-par-la-case-modelisation/" target="_blanck">ce billet</a> apporte un éclairage plus technique sur la modélisation des données en
+        graphe et leurs modalités de moissonnage.</p>
+    </div>
+    <div class="divider"></div>
+    <div class="row" style="margin-bottom: 0;margin-left:5px;margin-right:5px;">
+      <h5 class="header">Code source</h5>
+      <p class="caption">Le code source de l'application et la procédure d'installation sont disponible sur <a
+          href="https://github.com/gegedenice/sudocps-pro-app" target="_blanck">ce dépôt Github</a>.</p>
+    </div>
+    <div class="divider"></div>
+    <div class="row" style="margin-bottom: 0;margin-left:5px;margin-right:5px;">
+    <p><i>Besoin d'un coup de main ?</i> <a class="btn waves-effect waves-light btn-small"
+      href="mailto:sudoc-ps.paca-nice@univ-cotedazur.fr">Nous contacter<i
+        class="material-icons right">contact_mail</i></a></p>
+        </div>
+  </main>
+</body>
+<%- include ('../partials/script') -%>
+
+</html>

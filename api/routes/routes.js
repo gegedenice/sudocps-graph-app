@@ -6,32 +6,33 @@ module.exports = function(app) {
   var Middleware = require('../models/middleware.js');
 
   //testing it's ok
-  app.route('/test')
+  app.route('/api/test')
   .get(function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
-app.route('/widget')
-.get(function(req, res) {
-  res.sendFile(path.resolve("./api/third") + '/sudocps-unicabyrcr.js');
 
-});
 //for API
-  app.route('/api/unicas')
+  app.route('/api/v1/unicas')
   .get(Unicas.unicas);
 
-    app.route('/api/rcr2unicas/:rcr')
+    app.route('/api/v1/unicas/rcr/:rcr')
   .get(Unicas.unicasByRcr);
 
-  app.route('/api/titre2unicas/:title')
-  .get(Unicas.unicasByTitle);
+  /*app.route('/api/v1/titre2unicas/:title')
+  .get(Unicas.unicasByTitle);*/
 
-  app.route('/api/presselocale')
+  app.route('/api/v1/presselocale')
   .get(Presselocale.presselocale);
 
-  app.route('/api/rcr2presselocale/:rcr')
+  app.route('/api/v1/presselocale/rcr/:rcr')
   .get(Presselocale.presselocaleByRcr);
 
-  app.route('/middleware')
+  app.route('/api/v1/graphmiddleware')
   .post(Middleware.data2graph);
 
-    };
+//for widget
+app.route('/api/v1/widget')
+.get(function(req, res) {
+  res.sendFile(path.resolve("./api/widget") + '/widget.js');
+});
+};

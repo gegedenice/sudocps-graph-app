@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include ('../partials/head'); -%>
+</head>
+
+<body>
+    <header>
+        <%- include ('../partials/navbar') -%>
+    </header>
+    <main>
+        <h4 class="header">
+            <%= page %>
+        </h4>
+        <div class="row">
+            <div class="col s6">
+                <ul class="collection with-header">
+                    <li class="collection-header">
+                        <p class="flow-text">Les collections par bibliothèques</p>
+                        <div id="selectbox-bibs"></div><input type="hidden" id="selected_bib" />
+                    </li>
+                    <a href="#!" class="collection-item" onclick="postCypherQuery('MATCH (s:SudocUnica)-[o:OWNED_BY]->(b:Bib) WHERE b.rcr='+`'${$('#selected_bib').val()}'`+' OPTIONAL MATCH (s)-[rel:SAME_AS]->(bnf:BnfPresselocale) OPTIONAL MATCH (bnf)-[h:HAS_VERSION]->(num:Numerisation) return *')">Voir ses unicas<i
+                            class="material-icons secondary-content">send</i></a>
+                    <a href="#!" class="collection-item" onclick="postCypherQuery('MATCH (bnf:BnfPresselocale)<-[sa:SAME_AS]-(s)-[o:OWNED_BY]->(b:Bib) WHERE b.rcr='+`'${$('#selected_bib').val()}'`+' OPTIONAL MATCH (bnf)-[h:HAS_VERSION]->(num:Numerisation) return *')">Voir ses titres de presse locale ancienne <i
+                            class="material-icons secondary-content">send</i></a>
+                    <a href="#!" class="collection-item">Voir ses titres (de presse locale) en commun avec d'autres
+                        bibliothèques (du CR) <i class="material-icons secondary-content">send</i></a>
+                </ul>
+            </div>
+            <div class="col s6">
+                <ul class="collection with-header">
+                    <li class="collection-header">
+                        <p class="flow-text">Toutes les collections du CR</p>
+                    </li>
+                    <a href="#!" class="collection-item" onclick="postCypherQuery('MATCH (s:SudocUnica)-[rel:OWNED_BY]->(b:Bib) RETURN *')">Voir la répartition des unicas entre bibliothèques
+                        <i class="material-icons secondary-content">send</i></a>
+                    <a href="#!" class="collection-item">Voir la répartition des titres de presse locale entre
+                        bibliothèques <i class="material-icons secondary-content">send</i></a>
+                    <a href="#!" class="collection-item" onclick="postCypherQuery('MATCH (s:SudocUnica)-[rel:OWNED_BY]->(b:Bib) WHERE NOT EXISTS(s.issn) RETURN *')">Voir les notices sans ISSN <i
+                            class="material-icons secondary-content">send</i></a>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div id="graph"></div>
+        </div>
+    </main>
+</body>
+<%- include ('../partials/script') -%>
+<script src="./scripts/graphe.js"></script>
+</html>

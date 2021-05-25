@@ -1,11 +1,12 @@
 'user strict';
+var neo4j = require('neo4j-driver');
 var driver = require('./db.js');
-/*---- api & export excel-----*/
+
 exports.unicas = function (req, res) {
     var unicas = {};var content = [];
     unicas.unicas = content;
     //var unicas = [];
-    var session = driver.session();
+    var session = driver.session({ defaultAccessMode: neo4j.session.READ });
     // Run a Cypher statement, reading the result in a streaming manner as records arrive:
     session
    .run("MATCH (s:SudocUnica)-[r:OWNED_BY]->(b:Bib)-[:LOCATED]->(d:Dpt) OPTIONAL MATCH (s)-[:SAME_AS]->(bnf:BnfPresselocale) OPTIONAL MATCH (bnf)-[:HAS_VERSION]->(num:Numerisation) RETURN s,r,b,bnf,num")
@@ -37,7 +38,7 @@ exports.unicas = function (req, res) {
     var session = driver.session();
     // Run a Cypher statement, reading the result in a streaming manner as records arrive:
     session
-    .run("MATCH (s:SudocUnica)-[r:OWNED_BY]->(b:Bib {rcr:{rcrParam}}) OPTIONAL MATCH (s)-[:SAME_AS]->(bnf:BnfPresselocale) OPTIONAL MATCH (bnf)-[:HAS_VERSION]->(num:Numerisation) RETURN s,r,b,bnf,num",{rcrParam: req.params.rcr})
+    .run("MATCH (s:SudocUnica)-[r:OWNED_BY]->(b:Bib {rcr:$rcrParam}) OPTIONAL MATCH (s)-[:SAME_AS]->(bnf:BnfPresselocale) OPTIONAL MATCH (bnf)-[:HAS_VERSION]->(num:Numerisation) RETURN s,r,b,bnf,num",{rcrParam: req.params.rcr})
   .subscribe({
         onNext: function (record) {
             if(record._fields.filter(Boolean).length == "3")
@@ -58,13 +59,11 @@ exports.unicas = function (req, res) {
     });
   };
 
- exports.unicasByTitle = function (req, res) {
+ /*exports.unicasByTitle = function (req, res) {
     var unicas = {"query":{"title":req.params.title}};var content = [];
   unicas.unicas = content;
   var session = driver.session();
-  // Run a Cypher statement, reading the result in a streaming manner as records arrive:
   session
-  //.run("MATCH (s) WHERE s.titre CONTAINS {titleParam} RETURN s",{titleParam: req.params.title})
   .run("MATCH (s) WHERE LOWER(s.titre) CONTAINS LOWER({titleParam}) RETURN DISTINCT(s)",{titleParam: req.params.title})
 .subscribe({
       onNext: function (record) {
@@ -80,4 +79,4 @@ exports.unicas = function (req, res) {
           console.log(error);
       }
   });
-};
+};*/

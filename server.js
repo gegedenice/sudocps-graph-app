@@ -1,36 +1,43 @@
+//launch with npm run start, or npm run start:dev for nodemon autoreload
 const express = require('express');
-const bodyParser     = require('body-parser');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-const proxy = require('express-http-proxy');
-var wsProxy = require('http-proxy-middleware');
+require('dotenv').config({ path: './.env' });
+
 const app = express();
 const path = require('path');
-const port = process.env.PORT || 9000;
-const server = require('http').Server(app);
+//const port = process.env.PORT || 9000;
+const port = process.env.APP_PORT
 
-app.use(express.static(__dirname + '/app/'));
-app.use('/bower_components',  express.static(__dirname + '/bower_components'));
-app.use('/node_modules',  express.static(__dirname + '/node_modules'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+/*used to generate automatically the first swagger Json file, see the doc here 
+const expressOasGenerator = require('express-oas-generator');
+expressOasGenerator.init(app, {});
+*/
+
 app.use(cors());
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-// for http external request, not necessary for https request
-app.use('/proxy', proxy('http://www.idref.fr'));
-app.use('/sudoc', proxy('http://www.sudoc.fr'));
-//Important : proxy to allow bolt (websockets) connection from browser, doesn't work if no proxy
-/*app.use(
-    '/wsproxy',
-    wsProxy({ target: 'bolt://localhost:7687', ws: true })
-  );*/
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-//app.use(express.static('./api/third'));
-app.use('/api/third',  express.static(__dirname + '/api/third'));
+// app files
+app.use(express.static(__dirname + '/app/'));
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+//serve widget as a static js
+app.use('/api/widget',  express.static(__dirname + '/widget/widget.js'));
+
+//api routing
 var routes = require('./api/routes/routes'); //importing route
 routes(app); //register the route
 
-server.listen(port, function() {
+//public routing 
+var public_routes = require('./app/routes/routes')
+public_routes(app)
+
+//serve swagger doc
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.listen(port, function() {
     console.log("App running on port " + port);
 })

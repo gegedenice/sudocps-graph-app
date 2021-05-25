@@ -1,11 +1,11 @@
 'user strict';
+var neo4j = require('neo4j-driver');
 var driver = require('./db.js');
-//var flatten = require('./utils.js')
 
 exports.presselocale = function (req, res) {
     var presselocale = {};var content = [];
     presselocale.presselocale = content;
-    var session = driver.session();
+    var session = driver.session({ defaultAccessMode: neo4j.session.READ });
     // Run a Cypher statement, reading the result in a streaming manner as records arrive:
     session
    .run("MATCH (bnf:BnfPresselocale)-[:IS_ABOUT]->(d:Dpt) OPTIONAL MATCH (s)-[:SAME_AS]->(bnf) OPTIONAL MATCH (b:Bib)<-[:OWNED_BY]-(s) OPTIONAL MATCH (bnf)-[:HAS_VERSION]->(n:Numerisation) WITH bnf,s,collect(DISTINCT d) as dpts,collect(DISTINCT b) as bib,collect(DISTINCT n) as num RETURN bnf,dpts,s,bib,num")
@@ -38,11 +38,12 @@ exports.presselocale = function (req, res) {
   exports.presselocaleByRcr = function (req, res) {
     //cyper multi params : match (n:Sudocrecord)-[r:OWNED_BY]->(b:Bib) WHERE b.rcr IN ["060885101","060886101"] return n,r,b
     var presselocale = {"query":{"rcr":req.params.rcr}};var content = [];
+    console.log(presselocale)
     presselocale.presselocale = content;
-  var session = driver.session();
+    var session = driver.session({ defaultAccessMode: neo4j.session.READ });
   // Run a Cypher statement, reading the result in a streaming manner as records arrive:
   session
-  .run("MATCH (b:Bib {rcr:{rcrParam}})<-[:OWNED_BY]-(s)-[:SAME_AS]->(bnf:BnfPresselocale)-[:IS_ABOUT]->(d:Dpt) OPTIONAL MATCH (bnf)-[:HAS_VERSION]->(n:Numerisation) WITH bnf,s,collect(DISTINCT d) as dpts,collect(DISTINCT b) as bib,collect(DISTINCT n) as num RETURN bnf,dpts,s,bib,num",{rcrParam: req.params.rcr})
+  .run("MATCH (b:Bib {rcr:$rcrParam})<-[:OWNED_BY]-(s)-[:SAME_AS]->(bnf:BnfPresselocale)-[:IS_ABOUT]->(d:Dpt) OPTIONAL MATCH (bnf)-[:HAS_VERSION]->(n:Numerisation) WITH bnf,s,collect(DISTINCT d) as dpts,collect(DISTINCT b) as bib,collect(DISTINCT n) as num RETURN bnf,dpts,s,bib,num",{rcrParam: req.params.rcr})
 .subscribe({
       onNext: function (record) {
         var dpts = record._fields[1].map(function(item){return item.properties})
