@@ -13,8 +13,8 @@ function renameKey(obj){
         obj["name"] = obj["titre"]; 
         return obj
     }
-    if (obj["lieu"]) {
-        obj["name"] = obj["lieu"]; 
+    if (obj["etab"]) {
+        obj["name"] = obj["etab"]; 
         return obj
     }
     else {

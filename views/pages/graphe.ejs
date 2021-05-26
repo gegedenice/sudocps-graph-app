@@ -14,7 +14,7 @@
             <%= page %>
         </h4>
         <div class="row">
-            <div class="col s6">
+            <div class="col s4">
                 <ul class="collection with-header">
                     <li class="collection-header">
                         <p class="flow-text">Les collections par bibliothèques</p>
@@ -28,18 +28,46 @@
                         bibliothèques (du CR) <i class="material-icons secondary-content">send</i></a>
                 </ul>
             </div>
-            <div class="col s6">
-                <ul class="collection with-header">
-                    <li class="collection-header">
-                        <p class="flow-text">Toutes les collections du CR</p>
-                    </li>
-                    <a href="#!" class="collection-item" onclick="postCypherQuery('MATCH (s:SudocUnica)-[rel:OWNED_BY]->(b:Bib) RETURN *')">Voir la répartition des unicas entre bibliothèques
-                        <i class="material-icons secondary-content">send</i></a>
-                    <a href="#!" class="collection-item">Voir la répartition des titres de presse locale entre
-                        bibliothèques <i class="material-icons secondary-content">send</i></a>
-                    <a href="#!" class="collection-item" onclick="postCypherQuery('MATCH (s:SudocUnica)-[rel:OWNED_BY]->(b:Bib) WHERE NOT EXISTS(s.issn) RETURN *')">Voir les notices sans ISSN <i
-                            class="material-icons secondary-content">send</i></a>
-                </ul>
+            <div class="col s8">
+                <p class="flow-text">Toutes les collections du CR</p>
+                <div class="row">
+                    <div class="col s6">
+                        <ul class="collection with-header">
+                            <li class="collection-header">
+                                <p>Exploration</p>
+                            </li>
+                            <a href="#!" class="collection-item" onclick="postCypherQuery('MATCH (s:SudocUnica)-[rel:OWNED_BY]->(b:Bib) RETURN *')">Voir la répartition des unicas entre bibliothèques
+                                <i class="material-icons secondary-content">send</i></a>
+                            <a href="#!" class="collection-item">Voir la répartition des titres de presse locale entre
+                                bibliothèques <i class="material-icons secondary-content">send</i></a>
+                            <a href="#!" class="collection-item" onclick="postCypherQuery('')">Voir les unicas qui sont aussi des titres de presse locale <i
+                                    class="material-icons secondary-content">send</i></a>
+                            <a href="#!" class="collection-item" onclick="postCypherQuery('')">Voir les titres de presse locale qui sont aussi des unicas <i
+                                    class="material-icons secondary-content">send</i></a>
+                            <a href="#!" class="collection-item" onclick="postCypherQuery('')">Voir les unicas numérisés <i
+                                    class="material-icons secondary-content">send</i></a>
+                            <a href="#!" class="collection-item" onclick="postCypherQuery('')">Voir les titres concernant un dépratement conervé dans une bibliothèque d'un autre département<i
+                                    class="material-icons secondary-content">send</i></a>
+                        </ul>
+                    </div>
+                    <div class="col s6">
+                        <ul class="collection with-header">
+                            <li class="collection-header">
+                                <p>Qualité des données</p>
+                            </li>
+                            <a href="#!" class="collection-item" onclick="postCypherQuery('MATCH (s:SudocUnica)-[rel:OWNED_BY]->(b:Bib) WHERE NOT EXISTS(s.issn) RETURN *')">Voir les notices d'unicas sans ISSN <i
+                                    class="material-icons secondary-content">send</i></a>
+                            <a href="#!" class="collection-item" onclick="postCypherQuery('MATCH (s:SudocUnica)-[rel:OWNED_BY]->(b:Bib) WHERE EXISTS(s.controle) RETURN *')">Voir les notices d'unicas avec une zone 309 <i
+                                    class="material-icons secondary-content">send</i></a>
+                            <a href="#!" class="collection-item" onclick="postCypherQuery('')">Voir l'ensemble des notices Sudoc sans ISSN et/ou avec une zone 309 <i
+                                    class="material-icons secondary-content">send</i></a>
+                            <a href="#!" class="collection-item" onclick="postCypherQuery('')">Voir les titres de presse locale absents du Sudoc <i
+                                    class="material-icons secondary-content">send</i></a>
+                        </ul>
+                    </div>
+
+                </div>
+
             </div>
         </div>
         <div class="row">
