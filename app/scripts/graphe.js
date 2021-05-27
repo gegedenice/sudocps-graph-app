@@ -51,6 +51,7 @@ function postCypherQuery(q_cypher) {
 
 function datatograph(data){
     console.log(data)
+    if(data.length != 0) {
     var nodes = data
                 .filter(function(d){return d.labels})
                 .map(function(d){return {"id":d.identity.low,"group":d.labels[0],"label":renameKey(d.properties).name,"degre":d.properties.degre.low}})
@@ -60,6 +61,9 @@ function datatograph(data){
                 .map(function(d){return {"source":d.start.low,"target":d.end.low,"type":d.type}})
     const gData = {"nodes":_.uniq(nodes, x => x.id), "links":links}
       draw2D(gData)
+    } else {
+      alert("Pas de données pour cette requête")
+    }
   } 
   
   getNodeColor = [
@@ -100,7 +104,7 @@ function datatograph(data){
             ctx.fillText(label, node.x, node.y);
           }
           else if (node.group == "Dpt") {
-            ctx.fillRect(node.x - 6, node.y - 4, 12, 8);
+            ctx.fillRect(node.x - 6, node.y - 4, 12, 8);ctx.fillText(node.label, node.x, node.y);
           }
           else {
             //ctx.fillStyle = node.color;
