@@ -1,4 +1,9 @@
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../../swagger.json');
+
 module.exports = function(app) {
+
+  app.use('/', swaggerUi.serve); 
 
                   /*--------  Home & error page -------*/
 
@@ -29,5 +34,8 @@ module.exports = function(app) {
   });
   app.get('/documentation', function(req, res, next) {
     res.render('pages/documentation', {page:'Documentation pour les Centres du réseau', menuId:'documentation'});
+  });
+  app.get('/apidoc', function(req, res, next) {
+    res.send(swaggerUi.generateHTML(swaggerDocument));
   });
 }

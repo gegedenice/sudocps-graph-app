@@ -1,8 +1,6 @@
 //launch with npm run start, or npm run start:dev for nodemon autoreload
 const express = require('express');
 const cors = require('cors');
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
 require('dotenv').config({ path: './.env' });
 
 const app = express();
@@ -15,9 +13,16 @@ const expressOasGenerator = require('express-oas-generator');
 expressOasGenerator.init(app, {});
 */
 
+/*Standard way to serve Swagger, here the route is declared in app/routes/routes.js
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+*/
+
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+//app.use('/', swaggerUi.serve); 
 
 // app files
 app.use(express.static(__dirname + '/app/'));
@@ -34,9 +39,6 @@ routes(app); //register the route
 //public routing 
 var public_routes = require('./app/routes/routes')
 public_routes(app)
-
-//serve swagger doc
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(port, function() {
     console.log("App running on port " + port);
