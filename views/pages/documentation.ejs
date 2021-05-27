@@ -23,22 +23,25 @@
     <div class="row" style="margin-bottom: 0;margin-left:5px;margin-right:5px;">
       <h5 class="header">Le projet</h5>
       <p>L'idée générale de cette application est de proposer <b>une vue d'ensemble, intégrée et explorable</b> des unicas et des titres de
-        presse locale ancienne sur le territoire couvert par le CR PACA/Nice (Alpes-Maritimes, Var et Monaco).</p>
+        presse locale ancienne conservés sur le territoire couvert par le Centre de Ressources PACA/Nice (Alpes-Maritimes, Var et Monaco).</p>
         <p>Pour ce faire, et pour résoudre le problème de l'hétérogénéité des sources de données structurées mais non
-        interopérables, les données sont stockées et remodélisées en noeuds connectés entre eux par des relations typées
-        dans une base de données orientée graphe (<a href="https://neo4j.com/" target="_blanck">Neo4j</a>).</p>
-        <p>La couche applicative est branchée sur la base de donnée via un driver, et interroge le graphe par une couche intermédiaire
-        d'API afin de restituer les données selon différents formats d'exposition (API, visualisations, widget).
+        interopérables, les données sont moissonnées et stockées dans une base de données orientée graphe (<a href="https://neo4j.com/" target="_blanck">Neo4j</a>), 
+        au sein de laquelle elles sont remodélisées en noeuds connectés entre eux par des relations typées.</p>
+        <p>Le schéma de données utilisé est le suivant : </p>
+        <img src="./images/neo4j_metadata.png" />
+
+        <p>L'application est branchée sur la base de donnée (avec un driver), et interagit le graphe via une couche intermédiaire
+        d'API REST afin de transmettre les requêtes sur le graphe et restituer les données selon différents formats d'exposition (API, visualisations, widget).
       </p>
-      <p class="caption">La génèse et la description du projet ont été documentés dans plusieurs billets sur le blog du
-        CR PACA/Nice, vous pouvez retrouver l'ensemble des 5 billets relatifs à l'application <a href="http://bibliotheque-blogs.unice.fr/sudoc-ps/tag/application-unicapresse-locale-ancienne/" target="_blanck">ici</a>.</p>
-      <p class="caption">Parmi ceux-çi, <a href="http://bibliotheque-blogs.unice.fr/sudoc-ps/2019/06/28/enrichir-et-faire-parler-les-donnees-du-cr-45-passage-par-la-case-modelisation/" target="_blanck">ce billet</a> apporte un éclairage plus technique sur la modélisation des données en
-        graphe et leurs modalités de moissonnage.</p>
+      <p class="caption">La génèse et la description du projet ont été documentées sur le blog du CR PACA/Nice à l'occasion d'une <a href="http://bibliotheque-blogs.unice.fr/sudoc-ps/tag/application-unicapresse-locale-ancienne/" target="_blanck">série de billets</a> 
+        sur la mise en oeuvre et le développement de l'application.</p>
+      <p class="caption">Parmi ceux-çi, <a href="http://bibliotheque-blogs.unice.fr/sudoc-ps/2019/06/28/enrichir-et-faire-parler-les-donnees-du-cr-45-passage-par-la-case-modelisation/" target="_blanck">ce billet en particulier</a> apporte un éclairage plus technique sur la modélisation des données en
+        graphe et leurs modalités de récupération depuis le Sudoc et les services de la BnF.</p>
     </div>
     <div class="divider"></div>
     <div class="row" style="margin-bottom: 0;margin-left:5px;margin-right:5px;">
       <h5 class="header">Code source</h5>
-      <p class="caption">Le code source de l'application et la procédure d'installation sont disponible sur <a
+      <p class="caption">Si vous souhaitez installer et déployer cette application avec vos propres données, le code source et la procédure d'installation sont disponibles sur <a
           href="https://github.com/gegedenice/sudocps-pro-app" target="_blanck">ce dépôt Github</a>.</p>
     </div>
     <div class="divider"></div>
