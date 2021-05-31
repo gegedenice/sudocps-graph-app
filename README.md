@@ -1,5 +1,6 @@
 # Sudoc-PS App
-**Application web de visualisation des unicas et des titres de presse locale ancienne pour les Centres Régionaux Sudoc-PS par une modélisation en graphe avec Neo4j**
+**Application web de visualisation des unicas et des titres de presse locale ancienne pour les Centres Régionaux Sudoc-PS.
+Cette application s'appuie sur une modélisation en graphe afin de récupérer, lier et rendre explorable les 2 corpus de métadonnées à l'échelle d'un Centre Sudoc-PS.**
 
 ## Contexte
 
@@ -47,6 +48,19 @@ Les requêtes Cypher de chargement des données dans le graphe utilisent les fon
 dbms.security.procedures.unrestricted=apoc.*
 dbms.security.procedures.whitelist=apoc.*
 ```
+
+#### Alternative (temporaire, en mode test)
+
+Pour tester l'application sans installer Neo4j, vous pouvez utiliser gratuitement une Sandbox Neo4j en ligne : [https://neo4j.com/sandbox/](https://neo4j.com/sandbox/).
+
+Pour cela :
+* Créez-vous un compte utilisateur
+* Créez un projet en choisissant l'option Blanck Sandbox, puis ouvrez Neo4j Browser
+* Reporter les id d'accès à la sandbox qui s'affichent dans le fichier .env
+* L'extension Apoc étant nativement fournie avec l'instance Neo4j mise à disposition, les requêtes sont directement exécutables, par contre le fichier csv contenant les ppn des notices d'unicas doit être accessible en ligne en https pour pouvoir être lu depuis le graphe (depuis un dépôt Github public par exemple).
+
+Attention, l'accès à la sandbox est possible sur une durée limitée : 3 jours prolongeables une fois 7 jours. Passé ce délai, l'instance et les données qu'elle contient sont supprimées.
+
 
 ### Application
 
