@@ -1,4 +1,4 @@
-# Sudoc-PS App
+# Sudoc-PS Graph App
 **Application web de visualisation des unicas et des titres de presse locale ancienne pour les Centres Régionaux Sudoc-PS.
 Cette application s'appuie sur une modélisation en graphe afin de récupérer, lier et rendre explorable les 2 corpus de métadonnées à l'échelle d'un Centre Sudoc-PS.**
 

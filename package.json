@@ -1,5 +1,5 @@
 {
-  "name": "sudocps-pro-app",
+  "name": "sudocps-graph-app",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
