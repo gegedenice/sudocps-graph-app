@@ -23,7 +23,7 @@ Enfin le framework CSS utilisé est [Materialize](https://materializecss.com/).
 
 ### Pré-requis environnement
 
-Nécessite Node.js v.10 ou supérieure
+Nécessite Node.js v.14 ou supérieure
 
 ### Neo4j
 
