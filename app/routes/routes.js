@@ -18,7 +18,7 @@ module.exports = function(app) {
                    /*--------  public app pages -------*/
 
   app.get('/unicas', function(req, res, next) {
-    res.render('pages/unicas', {page:'Unicas', menuId:'unicas'});
+    res.render('pages/unicas', {page:'Unica', menuId:'unicas'});
   });
   app.get('/presselocale', function(req, res, next) {
     res.render('pages/presselocale', {page:'Presse locale ancienne', menuId:'presselocale'});
@@ -33,7 +33,7 @@ module.exports = function(app) {
     res.render('pages/export', {page:'Exporter les données', menuId:'export'});
   });
   app.get('/documentation', function(req, res, next) {
-    res.render('pages/documentation', {page:'Documentation pour les Centres du réseau', menuId:'documentation'});
+    res.render('pages/documentation', {page:'A propos', menuId:'documentation'});
   });
   app.get('/apidoc', function(req, res, next) {
     res.send(swaggerUi.generateHTML(swaggerDocument));

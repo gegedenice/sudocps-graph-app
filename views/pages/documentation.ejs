@@ -14,18 +14,36 @@
       <%= page %>
     </h4>
     <div class="row" style="margin-bottom: 0;margin-left:5px;margin-right:5px;">
-      <div class="col s12">
-        <p>Cette page est à destination des Centres du réseau Sudoc-PS qui souhaiteraient utiliser l'application avec
-          leurs propres métadonnées.</p>
-      </div>
+      <p>Le point de départ du projet est la valorisation de deux corpus spécifiques de périodiques : les unicas et la presse locale ancienne, concernant les 75 bibliothèques non déployées, du périmètre du Centre du Réseau Sudoc-PS PACA/Nice (Alpes-Maritimes, 
+	  Var, Monaco).</p>
+      <p>Ce projet s'inscrit dans le cadre de l’axe « Valorisation des collections » de la <a href="https://abes.fr/reseau-sudoc-ps/le-reseau/adherer-reseau-sudoc-ps/" target="_blanck">convention sur objectifs</a> 2018-2020, puis 2021-2023 avec 
+	  l’<a href="https://abes.fr/" target="_blanck">ABES</a> (Agence Bibliographique de l’Enseignement Supérieur, qui gère le catalogue <a href="http://www.sudoc.abes.fr/cbs/xslt/" target="_blanck">Sudoc</a>).</p>
+      <p>L'application AUPLA nous permet :</p>
+	  <div class="row">
+	  <div class="col s4">
+	  <ul class="collection">
+	    <li class="collection-item">d'évaluer nos collections
+		<a href="#!" class="secondary-content"><i class="material-icons">show_chart</i></a>
+		</li>
+		<li class="collection-item">d'améliorer leur visibilité
+		<a href="#!" class="secondary-content"><i class="material-icons">language</i></a>
+		</li>
+		<li class="collection-item">d'améliorer la qualité des données et du signalement dans le Sudoc.
+		<a href="#!" class="secondary-content"><i class="material-icons">code</i></a></li>
+	  </ul>
+	  </div>
+	  </div>
+	  <p>La mise en œuvre de ce projet a donné lieu à la création et la mise en ligne de cet outil de visualisation des données basé sur les web services du Sudoc. Par construction, son périmètre s'étend aux titres de périodiques unica du 
+	  <a href="http://www.sudoc.abes.fr/cbs/xslt/" target="_blanck">Sudoc</a> (titres ayant une seule localisation dans le Sudoc) et aux titres de périodiques des Alpes-Maritimes, du Var et de Monaco (périmètre de notre CR), 
+	  présents dans la base de la <a href="https://www.bnf.fr/fr" target="_black">BnF</a> : <a href="http://presselocaleancienne.bnf.fr/accueil" target="_blanck">Presse locale ancienne</a>.</p>
+	  <p>Les fonctionnalités principales portent sur la visualisation des données sous forme de graphes, la manipulation des données via l'interface web avec des rebonds vers les catalogues Sudoc et Presse locale ancienne, les vues sur les deux corpus 
+	  appariés dans la base de données, l'export de fichiers personnalisés par bibliothèque du CR...</p>
     </div>
     <div class="divider"></div>
     <div class="row" style="margin-bottom: 0;margin-left:5px;margin-right:5px;">
-      <h5 class="header">Le projet</h5>
-      <p>L'idée générale de cette application est de proposer <b>une vue d'ensemble, intégrée et explorable</b> des unicas et des titres de
-        presse locale ancienne conservés sur le territoire couvert par le Centre de Ressources PACA/Nice (Alpes-Maritimes, Var et Monaco).</p>
-        <p>Pour ce faire, et pour résoudre le problème de l'hétérogénéité des sources de données structurées mais non
-        interopérables, les données sont moissonnées et stockées dans une base de données orientée graphe (<a href="https://neo4j.com/" target="_blanck">Neo4j</a>), 
+      <h5 class="header">Le point technique</h5>
+        <p>Pour résoudre le problème de l'hétérogénéité des sources de données structurées mais non
+        complètement interopérables entre elles, les données sont moissonnées et stockées dans une base de données orientée graphe (<a href="https://neo4j.com/" target="_blanck">Neo4j</a>), 
         au sein de laquelle elles sont remodélisées en noeuds connectés entre eux par des relations typées.</p>
         <p>Le schéma de données utilisé est le suivant : </p>
         <img src="./images/neo4j_metadata.png" />

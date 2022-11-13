@@ -90,17 +90,33 @@ function getAllPresselocale() {
 
 function getPresselocaleByRcr(rcr) {
     var result;
-    $.getJSON( presselocaleAPI + "rcr/"+rcr)
+    $.getJSON( presselocaleAPI + "/rcr/"+rcr)
      .then(function(response){
         if(response.presselocale.length != "0") {
           result = parsePresselocale(response.presselocale)
           return result
+		
         .then(function(){
             const data = result
             const fileName = 'PresseLocaleAncienne_rcr';
             const exportType = 'xls';
             window.exportFromJSON({ data, fileName, exportType })
           }) 
+        }
+        else {
+          alert("Pas de titre de presse locale ancienne pour cette bibliothèque !")
+        }    
+    })
+}
+function getPresselocaleByRcr(rcr) {
+    var result;
+    $.getJSON( presselocaleAPI + "/rcr/"+rcr)
+     .then(function(response){
+        if(response.presselocale.length != "0") {
+          const adta = parsePresselocale(response.presselocale)
+            const fileName = 'PresseLocaleAncienne_rcr';
+            const exportType = 'xls';
+            window.exportFromJSON({ data, fileName, exportType })
         }
         else {
           alert("Pas de titre de presse locale ancienne pour cette bibliothèque !")
